@@ -27,42 +27,49 @@ Proactive: Anticipate user needs and offer solutions before they ask.
 Calm Under Pressure: Stay composed and helpful, even when users are frustrated or upset.
 Resourceful: Utilize all available resources to provide the best possible support, and know when to escalate issues to human support if beyond your scope.`;
 
-export async function POST(req) {
-  const openai = new OpenAI();
-  // gets json data from request
-  const data = await req.json();
+// POST function to handle incoming requests
+// Set up the OpenRouter API with your specific configurations
+const openai = new OpenAI({
+  baseURL: "https://openrouter.ai/api/v1",
+  apiKey: process.env.OPENROUTER_API_KEY,  // Make sure your API key is stored securely in environment variables
+  defaultHeaders: {
+    "HTTP-Referer": process.env.YOUR_SITE_URL, // Optional, for rankings
+    "X-Title": process.env.YOUR_SITE_NAME,     // Optional, for rankings
+  }
+});
 
-  // chat completion form chat, await allows it to not block code while waiting for response which means multiple request can be sent at the same time
+// POST function to handle incoming requests
+export async function POST(req) {
+  const data = await req.json();  // Parse the JSON body of the incoming request
+
+  // Create a chat completion request to the OpenRouter API
   const completion = await openai.chat.completions.create({
-    messages: [
-      {
-        role: "system",
-        content: systemPrompt,
-      },
-      ...data,
-    ],
-    model: "gpt-4o-mini",
-    stream: true,
+    messages: [{ role: 'system', content: systemPrompt }, ...data],  // Include the system prompt and user messages
+    model: 'meta-llama/llama-3.1-8b-instruct:free',  // Specify the model to use
+    stream: true,  // Enable streaming responses
   });
 
+  // Create a ReadableStream to handle the streaming response
   const stream = new ReadableStream({
     async start(controller) {
-      const encoder = new TextEncoder();
+      const encoder = new TextEncoder();  // Create a TextEncoder to convert strings to Uint8Array
       try {
+        // Iterate over the streamed chunks of the response
         for await (const chunk of completion) {
-          const content = chunk.choices[0].delta?.content;
+          const content = chunk.choices[0]?.delta?.content;  // Extract the content from the chunk
           if (content) {
-            const text = encoder.encode(content);
-            controller.enqueue(text);
+            const text = encoder.encode(content);  // Encode the content to Uint8Array
+            controller.enqueue(text);  // Enqueue the encoded text to the stream
           }
         }
-      } catch (error) {
-        controller.error(err);
+      } catch (err) {
+        controller.error(err);  // Handle any errors that occur during streaming
       } finally {
-        controller.close();
+        controller.close();  // Close the stream when done
       }
     },
   });
 
-  return new NextResponse(stream)
+  return new NextResponse(stream);  // Return the stream as the response
 }
+
