@@ -1,7 +1,8 @@
 "use client";
-import Image from "next/image";
+// import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { Box, Stack, TextField, Button } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -81,6 +82,7 @@ export default function Home() {
         border="1px solid black"
         p={2}
         spacing={3}
+        sx={{ borderRadius: 6 }}
       >
         <Stack
           direction="column"
@@ -98,30 +100,73 @@ export default function Home() {
               }
             >
               <Box
-                bgcolor={
-                  message.role === "assistant"
-                    ? "primary.main"
-                    : "secondary.main"
-                }
-                color="white"
+                // bgcolor={
+                //   message.role === "assistant"
+                //     ? "primary.main"
+                //     : "secondary.main"
+                // }
+                color="black"
                 borderRadius={16}
                 p={3}
               >
+                <strong>
+                  {message.role === "assistant" ? "Bot: " : "You: "}
+                </strong>
                 {message.content}
               </Box>
             </Box>
           ))}
           <div ref={messagesEndRef} />
         </Stack>
-        <Stack direction={"row"} spacing={2}>
+        <Stack
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          direction={"row"}
+          spacing={2}
+          sx={{
+            border: "1px solid #f2f2f2",
+            borderRadius: "50px",
+            paddingRight: "10px",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+          }}
+        >
           <TextField
-            label="Type your message here"
+            placeholder="Type your prompt here..."
             fullWidth
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  border: "none",
+                },
+              },
+            }}
           />
-          <Button variant="Contained" onClick={sendMessage}>
-            Send
+          <Button
+            variant="contained"
+            onClick={sendMessage}
+            disabled={message.trim() === ""}
+            sx={{
+              backgroundColor: "#33cc33",
+              borderRadius: "50%", // Make the button circular
+              minWidth: "40px", // Adjust the width and height to make it a circle
+              height: "40px",
+              padding: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              "&:hover": {
+                backgroundColor: "#2eb82e", // Keep the color the same on hover
+              },
+              "&:disabled": {
+                backgroundColor: "#cccccc", // Change color when disabled
+                cursor: "not-allowed",
+              },
+            }}
+          >
+            <SendIcon />
           </Button>
         </Stack>
       </Stack>
