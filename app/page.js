@@ -8,12 +8,13 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 
 export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: `assistant`,
-      content: `Hi I'm the Headstarter Support Agent, how can I assist you today?`,
+      content: `Hi I'm the Religion Chat bot, What would you like to learn today?`,
     },
   ]);
 
@@ -142,7 +143,7 @@ export default function Home() {
           // backgroundColor="blue"
         >
           <SmartToyIcon />
-          <Typography fontWeight="bold">ChatAI</Typography>
+          <Typography fontWeight="bold">ReligionAI</Typography>
         </Stack>
         <Stack
           display="flex"
@@ -196,6 +197,7 @@ export default function Home() {
             </Typography>
             <Typography fontSize=".8rem" color='#a6a6a6'>Portal</Typography>
           </Stack>
+          <UnfoldMoreIcon fontSize="small"/>
         </Stack>
       </Stack>
       <Stack
@@ -220,6 +222,7 @@ export default function Home() {
           spacing={3}
           sx={{ borderRadius: 6 }}
           // backgroundColor="red"
+          marginBottom='15px'
         >
           <Stack
             direction="column"
@@ -304,7 +307,7 @@ export default function Home() {
               </Button>
             </Stack>
             <Typography display='flex' justifyContent='center' marginTop='20px' color='#bfbfbf'>
-              ChatAI has the potential to generate Incorrect Information.
+              ReligionAI has the potential to generate Incorrect Information.
             </Typography>
           </Stack>
         </Stack>
