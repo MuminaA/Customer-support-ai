@@ -1,5 +1,4 @@
 "use client";
-// import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { Box, Stack, TextField, Button, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
@@ -8,7 +7,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -33,15 +32,6 @@ export default function Home() {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: " #e6e6e6",
-    // "&:hover": {
-    //   backgroundColor: '#f2f2f2',
-    // },
-    // marginLeft: 0,
-    // width: "100%",
-    // [theme.breakpoints.up("sm")]: {
-    //   marginLeft: theme.spacing(1),
-    //   width: "auto",
-    // },
   }));
 
   const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -59,15 +49,8 @@ export default function Home() {
     width: "100%",
     "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
+      // vertical padding
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      // transition: theme.transitions.create("width"),
-      // [theme.breakpoints.up("sm")]: {
-      //   width: "12ch",
-      //   "&:focus": {
-      //     width: "20ch",
-      //   },
-      // },
     },
   }));
 
@@ -115,20 +98,11 @@ export default function Home() {
   };
 
   return (
-    <Box
-      width="100vw"
-      height="100vh"
-      display="flex"
-      // flexDirection="column"
-      // justifyContent="center"
-      alignItems="center"
-      // backgroundColor="yellow"
-    >
+    <Box width="100vw" height="100vh" display="flex" alignItems="center">
       <Stack
         height="100vh"
         width="250px"
         border="1px solid #e6e6e6"
-        // backgroundColor="red"
         display="flex"
         flexDirection="column"
       >
@@ -140,18 +114,11 @@ export default function Home() {
           borderBottom="1px solid #e6e6e6"
           gap={1}
           padding="0 10px"
-          // backgroundColor="blue"
         >
           <SmartToyIcon />
           <Typography fontWeight="bold">ReligionAI</Typography>
         </Stack>
-        <Stack
-          display="flex"
-          gap={1.5}
-          margin="15px 10px"
-          // backgroundColor="purple"
-          flexGrow={1}
-        >
+        <Stack display="flex" gap={1.5} margin="15px 10px" flexGrow={1}>
           <Button
             variant="contained"
             sx={{
@@ -181,7 +148,6 @@ export default function Home() {
           </Search>
         </Stack>
         <Stack
-          // backgroundColor="yellow"
           height="60px"
           borderTop="1px solid #e6e6e6"
           display="flex"
@@ -195,13 +161,14 @@ export default function Home() {
             <Typography fontWeight="bold" fontSize="">
               Victony Simmons
             </Typography>
-            <Typography fontSize=".8rem" color='#a6a6a6'>Portal</Typography>
+            <Typography fontSize=".8rem" color="#a6a6a6">
+              Portal
+            </Typography>
           </Stack>
-          <UnfoldMoreIcon fontSize="small"/>
+          <UnfoldMoreIcon fontSize="small" />
         </Stack>
       </Stack>
       <Stack
-        // width="100vh"
         flex={1}
         height="100vh"
         display="flex"
@@ -213,16 +180,12 @@ export default function Home() {
         <Stack
           direction="column"
           width="800px"
-          // height="700px"
-          // width="100vh"
           height="100vh"
           marginTop="15px"
-          // border="1px solid black"
           p={2}
           spacing={3}
           sx={{ borderRadius: 6 }}
-          // backgroundColor="red"
-          marginBottom='15px'
+          marginBottom="15px"
         >
           <Stack
             direction="column"
@@ -306,7 +269,12 @@ export default function Home() {
                 <SendIcon />
               </Button>
             </Stack>
-            <Typography display='flex' justifyContent='center' marginTop='20px' color='#bfbfbf'>
+            <Typography
+              display="flex"
+              justifyContent="center"
+              marginTop="20px"
+              color="#bfbfbf"
+            >
               ReligionAI has the potential to generate Incorrect Information.
             </Typography>
           </Stack>
