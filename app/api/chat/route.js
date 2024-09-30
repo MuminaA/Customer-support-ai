@@ -1,5 +1,3 @@
-import { Readable } from 'stream';
-
 // route for our chat
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
@@ -41,7 +39,7 @@ export async function POST(req) {
   });
 
   // Create a ReadableStream to handle the streaming response
-  const stream = new Readable({
+  const stream = new ReadableStream({
     async start(controller) {
       const encoder = new TextEncoder(); // Create a TextEncoder to convert strings to Uint8Array
       try {
@@ -61,5 +59,5 @@ export async function POST(req) {
     },
   });
 
-  return new Response(stream); // Return the stream as the response
+  return new NextResponse(stream); // Return the stream as the response
 }
